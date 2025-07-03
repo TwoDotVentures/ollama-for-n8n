@@ -1,7 +1,6 @@
 # Use the official Ollama image as the base
 FROM ollama/ollama
 
-# Pull the desired model during the image build process
-# Replace 'deepseek-r1:14b' with any other model you need.
-# You can add multiple RUN lines to pull multiple models.
-RUN ollama pull deepseek-r1:14b
+# Start the server in the background, wait for it to initialize,
+# and then pull the model, all in a single RUN command.
+RUN /bin/sh -c 'ollama serve & sleep 10 && ollama pull deepseek-r1:14b'
